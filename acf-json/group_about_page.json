@@ -1,0 +1,279 @@
+{
+    "key": "group_about_page",
+    "title": "About Page Fields",
+    "fields": [
+        {
+            "key": "field_tab_ab_banner",
+            "label": "1. Banner",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_ab_banner_bg",
+            "label": "Ảnh Nền (Background)",
+            "name": "about_banner_bg",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_ab_banner_title",
+            "label": "Tiêu đề (Title)",
+            "name": "about_banner_title",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_banner_desc",
+            "label": "Mô tả ngắn (Description)",
+            "name": "about_banner_desc",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_tab_ab_intro",
+            "label": "2. Intro (Section 1)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_ab_intro_img",
+            "label": "Ảnh Trái",
+            "name": "about_intro_img",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_ab_intro_content",
+            "label": "Nội dung (Phải)",
+            "name": "about_intro_content",
+            "type": "wysiwyg"
+        },
+        {
+            "key": "field_ab_intro_gallery",
+            "label": "Gallery (Bên dưới)",
+            "name": "about_intro_gallery",
+            "type": "gallery",
+            "return_format": "array"
+        },
+        {
+            "key": "field_tab_ab_journey",
+            "label": "3. Journey (Section 2)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_ab_journey_title",
+            "label": "Tiêu đề Journey",
+            "name": "about_journey_title",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_journey_desc",
+            "label": "Mô tả Journey",
+            "name": "about_journey_desc",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_ab_journey_slider",
+            "label": "Các cột mốc",
+            "name": "about_journey_slider",
+            "type": "repeater",
+            "layout": "block",
+            "sub_fields": [
+                { "key": "f_aj_year", "label": "Năm/Mốc", "name": "year", "type": "text" },
+                { "key": "f_aj_img", "label": "Ảnh minh họa", "name": "image", "type": "image", "return_format": "array" },
+                { "key": "f_aj_title", "label": "Tiêu đề ngắn", "name": "title", "type": "text" },
+                { "key": "f_aj_content", "label": "Nội dung chi tiết (Bullet list)", "name": "content", "type": "wysiwyg" }
+            ]
+        },
+        {
+            "key": "field_tab_ab_values",
+            "label": "4. Values (Section 3)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_ab_values_list",
+            "label": "Danh sách Giá trị",
+            "name": "about_values_list",
+            "type": "repeater",
+            "layout": "block",
+            "sub_fields": [
+                { "key": "f_av_tab", "label": "Tên Tab (Vd: Our Purpose)", "name": "tab_title", "type": "text" },
+                { "key": "f_av_bg", "label": "Ảnh Nền", "name": "bg_image", "type": "image", "return_format": "array" },
+                { "key": "f_av_desc", "label": "Mô tả", "name": "desc", "type": "textarea", "rows": 3 }
+            ]
+        },
+        {
+            "key": "field_ab_values_slogan",
+            "label": "Slogan (Phần text kéo kéo bên dưới)",
+            "name": "about_values_slogan",
+            "type": "text"
+        },
+        {
+            "key": "field_tab_ab_team",
+            "label": "5. Team (Section 4)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_ab_team_title",
+            "label": "Tiêu đề (Vd: Our Team)",
+            "name": "about_team_title",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_team_total",
+            "label": "Tổng số lượng (Vd: 350)",
+            "name": "about_team_total",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_team_label",
+            "label": "Nhãn (Vd: PEOPLE)",
+            "name": "about_team_label",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_team_desc",
+            "label": "Mô tả ngắn",
+            "name": "about_team_desc",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_ab_team_hubs",
+            "label": "Các nhóm/Hubers",
+            "name": "about_team_hubs",
+            "type": "repeater",
+            "layout": "block",
+            "sub_fields": [
+                { "key": "f_at_hub_name", "label": "Tên Hub (Vd: VSN HQ)", "name": "hub_name", "type": "text" },
+                {
+                    "key": "f_at_members",
+                    "label": "Thành viên",
+                    "name": "members",
+                    "type": "repeater",
+                    "sub_fields": [
+                        { "key": "f_atm_avatar", "label": "Avatar", "name": "avatar", "type": "image", "return_format": "array" },
+                        { "key": "f_atm_nm", "label": "Tên", "name": "name", "type": "text" },
+                        { "key": "f_atm_pos", "label": "Chức vụ", "name": "position", "type": "text" }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_tab_ab_gallery",
+            "label": "6. Gallery (Section 5)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_ab_gallery_bg",
+            "label": "Ảnh Nền Block",
+            "name": "about_gallery_bg",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_ab_gallery_title",
+            "label": "Tiêu đề (About 5)",
+            "name": "about_gallery_title",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_gallery_images",
+            "label": "Hình ảnh Slide",
+            "name": "about_gallery_images",
+            "type": "gallery",
+            "return_format": "array"
+        },
+        {
+            "key": "field_tab_ab_sust",
+            "label": "7. Sustainable (Section 6)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_ab_sust_bg",
+            "label": "Ảnh Nền (Trái)",
+            "name": "about_sust_bg",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_ab_sust_title",
+            "label": "Tiêu đề",
+            "name": "about_sust_title",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_sust_desc",
+            "label": "Mô tả",
+            "name": "about_sust_desc",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_ab_sust_stats",
+            "label": "Thống kê (Bên phải)",
+            "name": "about_sust_stats",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_as_num", "label": "Con số", "name": "number", "type": "number" },
+                { "key": "f_as_lbl", "label": "Nhãn mô tả", "name": "label", "type": "text" }
+            ]
+        },
+        {
+            "key": "field_tab_ab_partners",
+            "label": "8. Partners (Section 7)",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_ab_partners_title",
+            "label": "Tiêu đề",
+            "name": "about_partners_title",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_partners_sub",
+            "label": "Mô tả ngắn",
+            "name": "about_partners_sub",
+            "type": "text"
+        },
+        {
+            "key": "field_ab_partners_logos",
+            "label": "Logos đối tác",
+            "name": "about_partners_logos",
+            "type": "gallery",
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-template/template-about.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [ "the_content" ],
+    "active": true,
+    "description": "",
+    "modified": 1709971300
+}

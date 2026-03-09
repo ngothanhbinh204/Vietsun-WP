@@ -140,3 +140,31 @@ function add_theme_config_options()
 	));
 }
 add_action('acf/init', 'add_theme_config_options');
+
+// Khởi tạo Options Page cho Theme Settings (Gộp chung)
+if( function_exists('acf_add_options_page') ) {
+    acf_add_options_page(array(
+        'page_title'    => 'Theme Settings',
+        'menu_title'    => 'Theme Settings',
+        'menu_slug'     => 'theme-settings', // Tất cả các field options gom chung vào slug này
+        'capability'    => 'edit_posts',
+        'redirect'      => false,
+        'icon_url'      => 'dashicons-admin-settings',
+    ));
+}
+
+// Ensure ACF loads local JSON correctly from our directory
+add_filter('acf/settings/load_json', 'my_acf_json_load_point');
+function my_acf_json_load_point( $paths ) {
+    // remove original path
+    unset($paths[0]);
+    // append path
+    $paths[] = get_stylesheet_directory() . '/acf-json';
+    return $paths;
+}
+
+add_filter('acf/settings/save_json', 'my_acf_json_save_point');
+function my_acf_json_save_point( $path ) {
+    $path = get_stylesheet_directory() . '/acf-json';
+    return $path;
+}

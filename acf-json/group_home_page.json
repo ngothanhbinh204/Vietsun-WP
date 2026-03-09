@@ -1,0 +1,331 @@
+{
+    "key": "group_home_page",
+    "title": "Home Page Fields",
+    "fields": [
+        {
+            "key": "field_tab_home_banner",
+            "label": "1. Banner",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_banner_slider",
+            "label": "Banner Slider",
+            "name": "home_banner_slider",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Thêm Slide Banner",
+            "sub_fields": [
+                {
+                    "key": "field_banner_video",
+                    "label": "Video/Ảnh Background",
+                    "name": "bg_media",
+                    "type": "file",
+                    "return_format": "array"
+                },
+                {
+                    "key": "field_banner_title",
+                    "label": "Tiêu đề",
+                    "name": "title",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "key": "field_tab_home_purpose",
+            "label": "2. Purpose",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_purpose_slider",
+            "label": "Purpose Slider",
+            "name": "home_purpose_slider",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Thêm Purpose",
+            "sub_fields": [
+                {
+                    "key": "field_purpose_bg",
+                    "label": "Ảnh Nền",
+                    "name": "bg_image",
+                    "type": "image",
+                    "return_format": "array"
+                },
+                {
+                    "key": "field_purpose_icon",
+                    "label": "Icon",
+                    "name": "icon",
+                    "type": "image",
+                    "return_format": "url"
+                },
+                {
+                    "key": "field_purpose_title",
+                    "label": "Tiêu đề",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_purpose_desc",
+                    "label": "Mô tả ngắn",
+                    "name": "desc",
+                    "type": "textarea",
+                    "rows": 3
+                },
+                {
+                    "key": "field_purpose_btn",
+                    "label": "Nút Xem thêm",
+                    "name": "button",
+                    "type": "link",
+                    "return_format": "array"
+                }
+            ]
+        },
+        {
+            "key": "field_tab_home_mnf",
+            "label": "3. Manufacturing",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_mnf_heading",
+            "label": "Tiêu đề chính",
+            "name": "home_mnf_heading",
+            "type": "text"
+        },
+        {
+            "key": "field_home_mnf_sub",
+            "label": "Mô tả phụ",
+            "name": "home_mnf_sub",
+            "type": "text"
+        },
+        {
+            "key": "field_home_mnf_left_stats",
+            "label": "Thống kê (Bên Trái)",
+            "name": "home_mnf_left_stats",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_mnf_l_num", "label": "Số", "name": "number", "type": "number" },
+                { "key": "f_mnf_l_txt", "label": "Nội dung", "name": "text", "type": "text" }
+            ]
+        },
+        {
+            "key": "field_home_mnf_left_img",
+            "label": "Ảnh minh họa (Trái)",
+            "name": "home_mnf_left_img",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_home_mnf_center_video",
+            "label": "Video URL (Giữa)",
+            "name": "home_mnf_center_video",
+            "type": "file",
+            "return_format": "url"
+        },
+        {
+            "key": "field_home_mnf_center_img",
+            "label": "Ảnh bìa Video (Giữa)",
+            "name": "home_mnf_center_img",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_home_mnf_right_stats",
+            "label": "Thống kê (Bên Phải)",
+            "name": "home_mnf_right_stats",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_mnf_r_num", "label": "Số", "name": "number", "type": "number" },
+                { "key": "f_mnf_r_txt", "label": "Nội dung", "name": "text", "type": "text" }
+            ]
+        },
+        {
+            "key": "field_home_mnf_right_img",
+            "label": "Ảnh minh họa (Phải)",
+            "name": "home_mnf_right_img",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_tab_home_factories",
+            "label": "4. Factories",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_fact_heading",
+            "label": "Tiêu đề",
+            "name": "home_fact_heading",
+            "type": "text"
+        },
+        {
+            "key": "field_home_fact_slider",
+            "label": "Factories Slider",
+            "name": "home_fact_slider",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_f_img", "label": "Ảnh", "name": "image", "type": "image", "return_format": "array" },
+                { "key": "f_f_title", "label": "Tiêu đề", "name": "title", "type": "text" },
+                { "key": "f_f_desc", "label": "Mô tả", "name": "desc", "type": "textarea", "new_lines": "br" },
+                { "key": "f_f_link", "label": "Link", "name": "link", "type": "link", "return_format": "array" }
+            ]
+        },
+        {
+            "key": "field_tab_home_products",
+            "label": "5. Products",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_prod_heading",
+            "label": "Tiêu đề",
+            "name": "home_prod_heading",
+            "type": "text"
+        },
+        {
+            "key": "field_home_prod_desc",
+            "label": "Mô tả chung",
+            "name": "home_prod_desc",
+            "type": "textarea"
+        },
+        {
+            "key": "field_home_prod_slider",
+            "label": "Products Slider",
+            "name": "home_prod_slider",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_p_img", "label": "Ảnh minh họa", "name": "image", "type": "image", "return_format": "array" },
+                { "key": "f_p_icon", "label": "Icon", "name": "icon", "type": "image", "return_format": "url" },
+                { "key": "f_p_title", "label": "Tên dòng sản phẩm", "name": "title", "type": "text" }
+            ]
+        },
+        {
+            "key": "field_tab_home_expand",
+            "label": "6. Expand Cards",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_exp_heading",
+            "label": "Tiêu đề",
+            "name": "home_exp_heading",
+            "type": "text"
+        },
+        {
+            "key": "field_home_exp_cards",
+            "label": "Cards",
+            "name": "home_exp_cards",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_ex_img", "label": "Ảnh bìa", "name": "image", "type": "image", "return_format": "url" },
+                { "key": "f_ex_title", "label": "Tiêu đề", "name": "title", "type": "text" },
+                { "key": "f_ex_desc", "label": "Mô tả", "name": "desc", "type": "textarea" },
+                { "key": "f_ex_link", "label": "Nút View More", "name": "link", "type": "link", "return_format": "array" }
+            ]
+        },
+        {
+            "key": "field_tab_home_journey",
+            "label": "7. Journey Banner",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_jrn_bg",
+            "label": "Ảnh nền Banner",
+            "name": "home_jrn_bg",
+            "type": "image",
+            "return_format": "url"
+        },
+        {
+            "key": "field_home_jrn_heading",
+            "label": "Tiêu đề",
+            "name": "home_jrn_heading",
+            "type": "text"
+        },
+        {
+            "key": "field_home_jrn_sub",
+            "label": "Mô tả",
+            "name": "home_jrn_sub",
+            "type": "textarea"
+        },
+        {
+            "key": "field_home_jrn_link",
+            "label": "Nút Link",
+            "name": "home_jrn_link",
+            "type": "link",
+            "return_format": "array"
+        },
+        {
+            "key": "field_tab_home_journey_slider",
+            "label": "8. Journey Slider",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_jrn_sld_h",
+            "label": "Tiêu đề",
+            "name": "home_jrn_sld_heading",
+            "type": "text"
+        },
+        {
+            "key": "field_home_jrn_sld_sub",
+            "label": "Mô tả phụ",
+            "name": "home_jrn_sld_sub",
+            "type": "text"
+        },
+        {
+            "key": "field_home_jrn_sld_imgs",
+            "label": "Danh sách Ảnh slide",
+            "name": "home_jrn_sld_images",
+            "type": "gallery",
+            "return_format": "array"
+        },
+        {
+            "key": "field_tab_home_news",
+            "label": "9. News",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_home_news_heading",
+            "label": "Tiêu đề",
+            "name": "home_news_heading",
+            "type": "text"
+        },
+        {
+            "key": "field_home_news_link",
+            "label": "Nút Xem tất cả",
+            "name": "home_news_link",
+            "type": "link",
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-template/template-home.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [ "the_content" ],
+    "active": true,
+    "description": "",
+    "modified": 1709971201
+}

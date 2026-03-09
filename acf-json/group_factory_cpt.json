@@ -1,0 +1,45 @@
+{
+    "key": "group_factory_cpt",
+    "title": "Factory Settings",
+    "fields": [
+        {
+            "key": "field_factory_desc",
+            "label": "Mô tả ngắn (Description)",
+            "name": "factory_desc",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_factory_map_link",
+            "label": "Google Map Link",
+            "name": "factory_map_link",
+            "type": "link",
+            "return_format": "array"
+        },
+        {
+            "key": "field_factory_gallery",
+            "label": "Hình ảnh Gallery (Slide)",
+            "name": "factory_gallery",
+            "type": "gallery",
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "factory"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1709971501
+}

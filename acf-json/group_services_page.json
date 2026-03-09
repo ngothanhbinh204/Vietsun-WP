@@ -1,0 +1,143 @@
+{
+    "key": "group_services_page",
+    "title": "Services Page Fields",
+    "fields": [
+        {
+            "key": "field_tab_svc_banner",
+            "label": "1. Banner",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_svc_banner_bg",
+            "label": "Ảnh Banner",
+            "name": "service_banner_bg",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_tab_svc_spd",
+            "label": "2. SPD Center",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_svc_spd_title",
+            "label": "Tiêu đề",
+            "name": "service_spd_title",
+            "type": "text"
+        },
+        {
+            "key": "field_svc_spd_desc",
+            "label": "Mô tả",
+            "name": "service_spd_desc",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_svc_spd_slider",
+            "label": "Hình ảnh Slide",
+            "name": "service_spd_slider",
+            "type": "gallery",
+            "return_format": "array"
+        },
+        {
+            "key": "field_tab_svc_product",
+            "label": "3. Our Product Slider",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_svc_prod_title",
+            "label": "Tiêu đề phần Product",
+            "name": "service_prod_title",
+            "type": "text"
+        },
+        {
+            "key": "field_svc_prod_slider",
+            "label": "Danh sách Sản phẩm",
+            "name": "service_prod_slider",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_sp_img", "label": "Ảnh hiển thị lớn", "name": "image", "type": "image", "return_format": "array" },
+                { "key": "f_sp_icon", "label": "Icon (Thumb)", "name": "icon", "type": "image", "return_format": "url" },
+                { "key": "f_sp_title", "label": "Tiêu đề", "name": "title", "type": "text" }
+            ]
+        },
+        {
+            "key": "field_tab_svc_features",
+            "label": "4. Product Features",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_svc_feat_title",
+            "label": "Tiêu đề",
+            "name": "service_feat_title",
+            "type": "text"
+        },
+        {
+            "key": "field_svc_feat_grid",
+            "label": "Tính năng",
+            "name": "service_feat_grid",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_sf_icon", "label": "Icon", "name": "icon", "type": "image", "return_format": "url" },
+                { "key": "f_sf_title", "label": "Tiêu đề", "name": "title", "type": "text" },
+                { "key": "f_sf_desc", "label": "Mô tả", "name": "desc", "type": "textarea" }
+            ]
+        },
+        {
+            "key": "field_tab_svc_vsn",
+            "label": "5. VSN DC",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_svc_vsn_title",
+            "label": "Tiêu đề",
+            "name": "service_vsn_title",
+            "type": "text"
+        },
+        {
+            "key": "field_svc_vsn_desc",
+            "label": "Mô tả ngắn",
+            "name": "service_vsn_desc",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_svc_vsn_gallery",
+            "label": "Grid Hình ảnh",
+            "name": "service_vsn_gallery",
+            "type": "repeater",
+            "sub_fields": [
+                { "key": "f_sv_img", "label": "Ảnh", "name": "image", "type": "image", "return_format": "array" },
+                { "key": "f_sv_txt", "label": "Text Over", "name": "text", "type": "text" }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-template/template-services.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [ "the_content" ],
+    "active": true,
+    "description": "",
+    "modified": 1709971401
+}

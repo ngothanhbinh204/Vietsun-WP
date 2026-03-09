@@ -1,0 +1,31 @@
+{
+    "key": "group_news_page",
+    "title": "News Page Settings",
+    "fields": [
+        {
+            "key": "field_news_banner_bg",
+            "label": "Ảnh Nền Banner",
+            "name": "news_banner_bg",
+            "type": "image",
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "posts_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1709971601
+}

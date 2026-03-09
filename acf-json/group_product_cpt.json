@@ -1,0 +1,45 @@
+{
+    "key": "group_product_cpt",
+    "title": "Product Fields",
+    "fields": [
+        {
+            "key": "field_prod_subtitle",
+            "label": "Mô tả phụ (Sub-title)",
+            "name": "product_subtitle",
+            "type": "text",
+            "instructions": "Ví dụ: Production: OEM/ODM Full-process"
+        },
+        {
+            "key": "field_prod_techs",
+            "label": "Tech List",
+            "name": "product_techs",
+            "type": "repeater",
+            "sub_fields": [
+                {
+                    "key": "field_prod_tech_name",
+                    "label": "Tên Tech",
+                    "name": "name",
+                    "type": "text"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1709971701
+}

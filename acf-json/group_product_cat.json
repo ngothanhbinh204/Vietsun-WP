@@ -1,0 +1,32 @@
+{
+    "key": "group_product_cat",
+    "title": "Product Category Fields",
+    "fields": [
+        {
+            "key": "field_pcat_icon",
+            "label": "Icon Danh mục",
+            "name": "product_cat_icon",
+            "type": "image",
+            "return_format": "url",
+            "instructions": "Nên dùng SVG hoặc PNG trong suốt"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "product_cat"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1709971801
+}

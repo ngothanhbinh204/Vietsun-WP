@@ -1,0 +1,38 @@
+{
+    "key": "group_product_archive",
+    "title": "Product Archive Settings",
+    "fields": [
+        {
+            "key": "field_tab_pa_banner",
+            "label": "Product Archive",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_pa_banner_bg",
+            "label": "Ảnh Banner Danh sách Sản phẩm",
+            "name": "product_archive_banner",
+            "type": "image",
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-settings"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1709971901
+}
