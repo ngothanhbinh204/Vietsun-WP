@@ -30,8 +30,8 @@ if ( $bg || $title || $desc ) :
                 <?php endif; ?>
                 
                 <?php if ( $desc ) : ?>
-                <div class="item-content">
-                    <p><?php echo nl2br(esc_html($desc)); ?></p>
+                <div class="item-content prose">
+                    <?php echo wp_kses_post($desc); ?>
                 </div>
                 <?php endif; ?>
             </div>
