@@ -232,6 +232,16 @@ function add_user_callback($request)
 // Remove p tag in contact form
 add_filter('wpcf7_autop_or_not', '__return_false');
 
+/**
+ * Filter search results to only show posts
+ */
+function vietsun_search_filter( $query ) {
+    if ( !is_admin() && $query->is_main_query() && $query->is_search ) {
+        $query->set('post_type', array('post'));
+    }
+}
+add_action('pre_get_posts', 'vietsun_search_filter');
+
 add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs, $class) {
 	$language_active = do_shortcode('[language]');
 	$homepage_url = get_home_url();

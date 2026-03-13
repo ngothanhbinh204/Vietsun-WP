@@ -1,0 +1,154 @@
+{
+    "key": "group_contact_page",
+    "title": "Contact Page Fields",
+    "fields": [
+        {
+            "key": "field_tab_contact_banner",
+            "label": "1. Banner",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_contact_banner_bg",
+            "label": "Ảnh Banner",
+            "name": "contact_banner_bg",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_tab_contact_form",
+            "label": "2. Form Contact",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_contact_form_title",
+            "label": "Tiêu đề form (VD: Contact)",
+            "name": "contact_form_title",
+            "type": "text"
+        },
+        {
+            "key": "field_contact_form_subtitle",
+            "label": "Mô tả phụ (sub-title)",
+            "name": "contact_form_subtitle",
+            "type": "wysiwyg"
+        },
+        {
+            "key": "field_contact_cf7_id",
+            "label": "Contact Form 7",
+            "name": "contact_cf7",
+            "type": "text",
+            "instructions": "Nhập shortcode của Contact Form 7 cần hiển thị."
+        },
+        {
+            "key": "field_tab_contact_info",
+            "label": "3. Thông tin liên hệ",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_contact_info_title",
+            "label": "Tiêu đề khối thông tin (VD: INFORMATION)",
+            "name": "contact_info_title",
+            "type": "text"
+        },
+        {
+            "key": "field_contact_info_items",
+            "label": "Danh sách thông tin liên hệ",
+            "name": "contact_info_items",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Thêm thông tin liên hệ",
+            "sub_fields": [
+                {
+                    "key": "field_cinfo_icon",
+                    "label": "Icon (FontAwesome)",
+                    "name": "icon",
+                    "type": "select",
+                    "instructions": "Chọn icon hiển thị trước thông tin.",
+                    "choices": {
+                        "fa-location-dot": "📍 Địa chỉ (fa-location-dot)",
+                        "fa-phone": "📞 Điện thoại (fa-phone)",
+                        "fa-mobile": "📱 Di động (fa-mobile)",
+                        "fa-envelope": "✉️ Email (fa-envelope)",
+                        "fa-fax": "🖨️ Fax (fa-fax)",
+                        "fa-globe": "🌐 Website (fa-globe)",
+                        "fa-clock": "🕐 Giờ làm việc (fa-clock)",
+                        "fa-building": "🏢 Văn phòng (fa-building)"
+                    },
+                    "default_value": "fa-phone",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_cinfo_link",
+                    "label": "Liên kết / Nội dung",
+                    "name": "link",
+                    "type": "link",
+                    "return_format": "array",
+                    "instructions": "Title = nội dung hiển thị. URL = tel:, mailto:, hoặc https://..."
+                }
+            ]
+        },
+        {
+            "key": "field_contact_working_hours",
+            "label": "Giờ làm việc",
+            "name": "contact_working_hours",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Thêm ca làm việc",
+            "instructions": "Ví dụ: Monday-Friday | 8:00 am to 5:00 pm",
+            "sub_fields": [
+                {
+                    "key": "field_wh_day",
+                    "label": "Ngày",
+                    "name": "day",
+                    "type": "text"
+                },
+                {
+                    "key": "field_wh_time",
+                    "label": "Giờ",
+                    "name": "time",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "key": "field_tab_contact_map",
+            "label": "4. Google Map",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_contact_map_embed",
+            "label": "Google Maps Embed URL",
+            "name": "contact_map_embed",
+            "type": "text",
+            "instructions": "Dán URL embed từ Google Maps (phần src trong thẻ iframe). Ví dụ: https://www.google.com/maps/embed?pb=..."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-template/template-contact.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": ["the_content"],
+    "active": true,
+    "description": "",
+    "modified": 1709971901
+}

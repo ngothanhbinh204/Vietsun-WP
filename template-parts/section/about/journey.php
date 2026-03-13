@@ -44,6 +44,7 @@ $slider = get_field('about2_slider');
 						<div class="swiper swiper-main-journey">
 							<div class="swiper-wrapper">
 								<?php foreach ($slider as $item) : ?>
+									<!-- <?php var_dump($item) ?> -->
 									<div class="swiper-slide">
 										<div class="content-card">
 											<div class="img img-ratio ratio:pt-[213_320] zoom-img">

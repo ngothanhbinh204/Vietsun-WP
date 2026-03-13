@@ -10,6 +10,8 @@ $footer_logo       = get_field('footer_logo', 'option');
 $newsletter_title  = get_field('newsletter_title', 'option');
 $newsletter_desc   = get_field('newsletter_desc', 'option');
 
+$cf7_footer        = get_field('footer_cf7', 'option');
+
 // Info Block
 $info_heading      = get_field('footer_info_heading', 'option');
 $footer_infos      = get_field('footer_infos', 'option'); // Repeater
@@ -56,14 +58,9 @@ $copyright_text    = get_field('footer_copyright', 'option');
                 
                 <div class="box-right">
                     <div class="item-form">
-                        <!-- Sử dụng Contact Form 7 shortcode cho Newsletter / Subscribe Form -->
-                        <?php echo do_shortcode('[contact-form-7 id="YOUR_NEWSLETTER_ID" title="Newsletter"]'); ?>
-                        
-                        <!-- Static Form tham khảo cho layout (ẩn đi trong thực tế wp) -->
-                        <!--
-                        <input type="text" placeholder="<?php esc_attr_e('Your email...', 'canhcamtheme'); ?>">
-                        <a class="btn btn-icon" href="#"><span><?php esc_html_e('Send', 'canhcamtheme'); ?></span><i class="fa-regular fa-chevron-right"></i></a>
-                        -->
+                        <?php if ( $cf7_footer ) : ?>
+                            <?php echo do_shortcode($cf7_footer); ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

@@ -1,37 +1,49 @@
 <?php
 /**
- * The template for displaying category archives.
+ * Category Template — News filtered by category
+ *
+ * Được kích hoạt khi người dùng click vào tab category (Company News, Events, v.v.)
+ * Hiển thị UI giống hệt archive.php nhưng filter theo category đang active.
  */
 
 get_header();
 
-// Banner cho trang Blog lấy từ Page for posts (dùng chung cho category)
 $page_for_posts = get_option('page_for_posts');
-$bg = get_field('news_banner_bg', $page_for_posts);
+$bg             = get_field('news_banner_bg', $page_for_posts);
 ?>
+
 <main>
-    <?php if ( $bg ) : ?>
+    <!-- Banner (lấy chung từ trang Posts Page) -->
     <section class="section-service-1">
         <div class="img img-ratio ratio:pt-[720_1920]">
-            <img class="lozad" data-src="<?php echo esc_url($bg['url']); ?>" alt="<?php echo esc_attr($bg['alt'] ?: single_cat_title('', false)); ?>" />
+            <?php if ( $bg ) : ?>
+                <img class="lozad" src="<?php echo esc_url($bg['url']); ?>" data-src="<?php echo esc_url($bg['url']); ?>" alt="<?php echo esc_attr($bg['alt'] ?: single_cat_title('', false)); ?>" />
+            <?php endif; ?>
         </div>
     </section>
-    <?php endif; ?>
 
+    <!-- Breadcrumb -->
     <section class="global-breadcrumb">
         <div class="container-fluid">
-            <nav class="rank-math-breadcrumb" aria-label="breadcrumbs">
-                <p>
-                    <a href="<?php echo home_url(); ?>"><?php esc_html_e('Trang chủ', 'canhcam'); ?></a>
-                    <span class="separator"></span>
-                    <a href="<?php echo get_permalink($page_for_posts); ?>"><?php echo get_the_title($page_for_posts) ?: __('Tin tức', 'canhcam'); ?></a>
-                    <span class="separator"></span>
-                    <span class="last"><?php echo single_cat_title('', false); ?></span>
-                </p>
-            </nav>
+            <?php if ( function_exists('rank_math_the_breadcrumbs') ) {
+                rank_math_the_breadcrumbs();
+            } else { ?>
+                <nav class="rank-math-breadcrumb" aria-label="breadcrumbs">
+                    <p>
+                        <a href="<?php echo home_url(); ?>"><?php esc_html_e('Trang chủ', 'canhcamtheme'); ?></a>
+                        <span class="separator"></span>
+                        <a href="<?php echo esc_url(get_permalink($page_for_posts)); ?>">
+                            <?php echo esc_html(get_the_title($page_for_posts) ?: 'Tin tức'); ?>
+                        </a>
+                        <span class="separator"></span>
+                        <span class="last"><?php single_cat_title(); ?></span>
+                    </p>
+                </nav>
+            <?php } ?>
         </div>
     </section>
 
     <?php get_template_part('template-parts/section/news/list'); ?>
 </main>
+
 <?php get_footer(); ?>

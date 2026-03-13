@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_tab_pa_banner",
-            "label": "Product Archive",
+            "label": "1. Banner & Intro",
             "name": "",
             "type": "tab",
             "placement": "top"
@@ -15,6 +15,47 @@
             "name": "product_archive_banner",
             "type": "image",
             "return_format": "array"
+        },
+        {
+            "key": "field_pa_page_title",
+            "label": "Tiêu đề trang (VD: OUR PRODUCT)",
+            "name": "product_archive_title",
+            "type": "text"
+        },
+        {
+            "key": "field_pa_desc",
+            "label": "Mô tả ngắn (box-bottom)",
+            "name": "product_archive_desc",
+            "type": "wysiwyg"
+        },
+        {
+            "key": "field_tab_pa_stats",
+            "label": "2. Thống kê",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_pa_stats",
+            "label": "Thống kê (Số liệu))",
+            "name": "product_archive_stats",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Thêm số liệu",
+            "sub_fields": [
+                {
+                    "key": "f_pa_stat_num",
+                    "label": "Số",
+                    "name": "number",
+                    "type": "text"
+                },
+                {
+                    "key": "f_pa_stat_label",
+                    "label": "Nhãn (VD: PRODUCT CATEGORY)",
+                    "name": "label",
+                    "type": "text"
+                }
+            ]
         }
     ],
     "location": [

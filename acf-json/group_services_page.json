@@ -33,8 +33,7 @@
             "key": "field_svc_spd_desc",
             "label": "Mô tả",
             "name": "service_spd_desc",
-            "type": "textarea",
-            "rows": 4
+            "type": "wysiwyg"
         },
         {
             "key": "field_svc_spd_slider",
@@ -62,9 +61,26 @@
             "name": "service_prod_slider",
             "type": "repeater",
             "sub_fields": [
-                { "key": "f_sp_img", "label": "Ảnh hiển thị lớn", "name": "image", "type": "image", "return_format": "array" },
-                { "key": "f_sp_icon", "label": "Icon (Thumb)", "name": "icon", "type": "image", "return_format": "url" },
-                { "key": "f_sp_title", "label": "Tiêu đề", "name": "title", "type": "text" }
+                {
+                    "key": "f_sp_img",
+                    "label": "Ảnh hiển thị lớn",
+                    "name": "image",
+                    "type": "image",
+                    "return_format": "array"
+                },
+                {
+                    "key": "f_sp_icon",
+                    "label": "Icon (Thumb)",
+                    "name": "icon",
+                    "type": "image",
+                    "return_format": "url"
+                },
+                {
+                    "key": "f_sp_title",
+                    "label": "Tiêu đề",
+                    "name": "title",
+                    "type": "text"
+                }
             ]
         },
         {
@@ -86,9 +102,25 @@
             "name": "service_feat_grid",
             "type": "repeater",
             "sub_fields": [
-                { "key": "f_sf_icon", "label": "Icon", "name": "icon", "type": "image", "return_format": "url" },
-                { "key": "f_sf_title", "label": "Tiêu đề", "name": "title", "type": "text" },
-                { "key": "f_sf_desc", "label": "Mô tả", "name": "desc", "type": "textarea" }
+                {
+                    "key": "f_sf_icon",
+                    "label": "Icon",
+                    "name": "icon",
+                    "type": "image",
+                    "return_format": "url"
+                },
+                {
+                    "key": "f_sf_title",
+                    "label": "Tiêu đề",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "f_sf_desc",
+                    "label": "Mô tả",
+                    "name": "desc",
+                    "type": "wysiwyg"
+                }
             ]
         },
         {
@@ -108,8 +140,7 @@
             "key": "field_svc_vsn_desc",
             "label": "Mô tả ngắn",
             "name": "service_vsn_desc",
-            "type": "textarea",
-            "rows": 3
+            "type": "wysiwyg"
         },
         {
             "key": "field_svc_vsn_gallery",
@@ -117,9 +148,27 @@
             "name": "service_vsn_gallery",
             "type": "repeater",
             "sub_fields": [
-                { "key": "f_sv_img", "label": "Ảnh", "name": "image", "type": "image", "return_format": "array" },
-                { "key": "f_sv_txt", "label": "Text Over", "name": "text", "type": "text" }
+                {
+                    "key": "f_sv_img",
+                    "label": "Ảnh",
+                    "name": "image",
+                    "type": "image",
+                    "return_format": "array"
+                },
+                {
+                    "key": "f_sv_txt",
+                    "label": "Text Over",
+                    "name": "text",
+                    "type": "text"
+                }
             ]
+        },
+        {
+            "key": "field_svc_vsn_link",
+            "label": "Nút Xem tất cả",
+            "name": "service_vsn_link",
+            "type": "link",
+            "return_format": "array"
         }
     ],
     "location": [
@@ -136,7 +185,9 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [ "the_content" ],
+    "hide_on_screen": [
+        "the_content"
+    ],
     "active": true,
     "description": "",
     "modified": 1709971401

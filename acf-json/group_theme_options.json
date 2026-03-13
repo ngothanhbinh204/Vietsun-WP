@@ -118,6 +118,25 @@
             "mime_types": ""
         },
         {
+            "key": "field_footer_cf7",
+            "label": "Footer CF7",
+            "name": "footer_cf7",
+            "type": "text",
+            "instructions": "Nhập shortcode của Contact Form 7 cần hiển thị.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_newsletter_title",
             "label": "Newsletter Title",
             "name": "newsletter_title",

@@ -18,6 +18,17 @@
             "button_label": "Thêm Slide Banner",
             "sub_fields": [
                 {
+                    "key": "field_banner_media_type",
+                    "label": "Loại Media",
+                    "name": "media_type",
+                    "type": "select",
+                    "choices": {
+                        "image": "Ảnh",
+                        "video": "Video"
+                    },
+                    "default_value": "image"
+                },
+                {
                     "key": "field_banner_video",
                     "label": "Video/Ảnh Background",
                     "name": "bg_media",
@@ -71,8 +82,7 @@
                     "key": "field_purpose_desc",
                     "label": "Mô tả ngắn",
                     "name": "desc",
-                    "type": "textarea",
-                    "rows": 3
+                    "type": "wysiwyg"
                 },
                 {
                     "key": "field_purpose_btn",
@@ -100,7 +110,7 @@
             "key": "field_home_mnf_sub",
             "label": "Mô tả phụ",
             "name": "home_mnf_sub",
-            "type": "text"
+            "type": "wysiwyg"
         },
         {
             "key": "field_home_mnf_left_stats",
@@ -171,7 +181,7 @@
             "sub_fields": [
                 { "key": "f_f_img", "label": "Ảnh", "name": "image", "type": "image", "return_format": "array" },
                 { "key": "f_f_title", "label": "Tiêu đề", "name": "title", "type": "text" },
-                { "key": "f_f_desc", "label": "Mô tả", "name": "desc", "type": "textarea", "new_lines": "br" },
+                { "key": "f_f_desc", "label": "Mô tả", "name": "desc", "type": "wysiwyg" },
                 { "key": "f_f_link", "label": "Link", "name": "link", "type": "link", "return_format": "array" }
             ]
         },
@@ -192,7 +202,7 @@
             "key": "field_home_prod_desc",
             "label": "Mô tả chung",
             "name": "home_prod_desc",
-            "type": "textarea"
+            "type": "wysiwyg"
         },
         {
             "key": "field_home_prod_slider",
@@ -226,7 +236,7 @@
             "sub_fields": [
                 { "key": "f_ex_img", "label": "Ảnh bìa", "name": "image", "type": "image", "return_format": "url" },
                 { "key": "f_ex_title", "label": "Tiêu đề", "name": "title", "type": "text" },
-                { "key": "f_ex_desc", "label": "Mô tả", "name": "desc", "type": "textarea" },
+                { "key": "f_ex_desc", "label": "Mô tả", "name": "desc", "type": "wysiwyg" },
                 { "key": "f_ex_link", "label": "Nút View More", "name": "link", "type": "link", "return_format": "array" }
             ]
         },
@@ -254,7 +264,7 @@
             "key": "field_home_jrn_sub",
             "label": "Mô tả",
             "name": "home_jrn_sub",
-            "type": "textarea"
+            "type": "wysiwyg"
         },
         {
             "key": "field_home_jrn_link",
@@ -280,7 +290,7 @@
             "key": "field_home_jrn_sld_sub",
             "label": "Mô tả phụ",
             "name": "home_jrn_sld_sub",
-            "type": "text"
+            "type": "wysiwyg"
         },
         {
             "key": "field_home_jrn_sld_imgs",

@@ -1,70 +1,84 @@
 <?php
 /**
- * News List Section Template (Used in home.php and category.php)
+ * News List Section Template
+ * 
+ * Dùng chung cho: archive.php, category.php, và search.php
+ * 
+ * $args['hide_hot'] (bool) - Nếu true, sẽ không hiển thị bài viết lớn box-news-hot.
  */
 
-$page_for_posts = get_option('page_for_posts');
-$blog_url = get_permalink($page_for_posts);
+$hide_hot        = isset($args['hide_hot']) ? $args['hide_hot'] : false;
+$page_for_posts  = get_option('page_for_posts');
+$blog_url        = get_permalink($page_for_posts);
+$news_page_title = is_search() ? __('SEARCH RESULTS', 'canhcamtheme') : (get_the_title($page_for_posts) ?: 'NEWS');
 
-// Get all categories for filter
+// Lấy tất cả categories có bài viết
 $categories = get_terms(array(
     'taxonomy'   => 'category',
     'hide_empty' => true,
 ));
 
-$current_cat_id = 0;
-$current_cat_name = __('Tất cả', 'canhcam');
+// Xác định category đang active
+$current_cat_id   = 0;
+$current_cat_name = is_search() ? __('Search', 'canhcamtheme') : __('All', 'canhcamtheme');
 if ( is_category() ) {
-    $current_cat = get_queried_object();
-    $current_cat_id = $current_cat->term_id;
-    $current_cat_name = $current_cat->name;
+    $current_cat       = get_queried_object();
+    $current_cat_id    = $current_cat->term_id;
+    $current_cat_name  = $current_cat->name;
 }
+
+$paged = max(1, (int) get_query_var('paged'));
 ?>
 <section class="section-news">
-    <!-- Note: Removed data-toggle="tabslet" since tabs are real pages now -->
     <div class="wrap">
+
+        <?php if ( !is_search() ) : ?>
+        <!-- Heading (Ẩn ở trang search vì search.php đã có title riêng) -->
         <div class="wrap-heading">
-            <h2 class="title"><?php echo esc_html(get_the_title($page_for_posts) ?: __('TIN TỨC', 'canhcam')); ?></h2>
+            <h2 class="title"><?php echo esc_html($news_page_title); ?></h2>
         </div>
-        
-        <!-- Filter Category Tabs -->
+        <?php endif; ?>
+
+        <!-- Filter Dropdown -->
         <div class="filter-dropdown">
             <div class="filter-toggle">
                 <span class="selected-text"><?php echo esc_html($current_cat_name); ?></span>
                 <i class="fa-regular fa-chevron-down"></i>
             </div>
             <ul class="tabslet-tab filter-menu">
-                <li class="<?php echo ($current_cat_id === 0) ? 'active' : ''; ?>">
-                    <a href="<?php echo esc_url($blog_url); ?>"><span><?php esc_html_e('Tất cả', 'canhcam'); ?></span></a>
+                <li class="<?php echo ($current_cat_id === 0 && !is_search()) ? 'active' : ''; ?>">
+                    <a href="<?php echo esc_url($blog_url); ?>"><span><?php esc_html_e('All', 'canhcamtheme'); ?></span></a>
                 </li>
-                <?php foreach( $categories as $cat ) : ?>
+                <?php foreach ( $categories as $cat ) : ?>
                 <li class="<?php echo ($current_cat_id === $cat->term_id) ? 'active' : ''; ?>">
-                    <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>"><span><?php echo esc_html($cat->name); ?></span></a>
+                    <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>">
+                        <span><?php echo esc_html($cat->name); ?></span>
+                    </a>
                 </li>
                 <?php endforeach; ?>
             </ul>
         </div>
 
-        <div class="tabslet-content active" style="display: block;">
+        <div class="tabslet-content active" style="display:block;">
             <?php if ( have_posts() ) : ?>
-                <?php 
-                // Xử lý bài ưu tiên (box-news-hot) chỉ xuất hiện ở page 1
-                $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-                $is_first_post = ($paged == 1); 
-                ?>
 
-                <!-- First featured post -->
-                <?php if ( $is_first_post ) : the_post(); ?>
+                <?php
+                // Bài viết đầu tiên là "hot featured" — chỉ hiện ở trang 1 và khi không bị hide_hot
+                if ( !$hide_hot && $paged === 1 ) : the_post(); ?>
                 <div class="box-news-hot zoom-img-parent">
                     <div class="box-image img-zoom">
                         <a class="img-ratio ratio:pt-[620_1140]" href="<?php the_permalink(); ?>">
-                            <img class="lozad" data-src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'full'); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                            <?php
+                            $featured = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                            if ( $featured ) : ?>
+                                <img class="lozad" src="<?php echo esc_url($featured); ?>" data-src="<?php echo esc_url($featured); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                            <?php endif; ?>
                         </a>
                     </div>
                     <div class="box-content">
                         <div class="date-category">
                             <span class="date"><?php echo get_the_date('d.m.Y'); ?></span>
-                            <?php 
+                            <?php
                             $cats = get_the_category();
                             if ( !empty($cats) ) {
                                 echo '<span class="category">' . esc_html($cats[0]->name) . '</span>';
@@ -80,22 +94,23 @@ if ( is_category() ) {
                 <?php endif; ?>
 
                 <!-- Remaining Posts Grid -->
-                <?php if ( have_posts() ) : ?>
                 <div class="box-new">
-                    <?php while ( have_posts() ) : the_post(); ?>
+                    <?php while ( have_posts() ) : the_post();
+                        $thumb = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                        $cats  = get_the_category();
+                    ?>
                     <a class="card-news group" href="<?php the_permalink(); ?>">
                         <div class="img img-ratio ratio:pt-[296_395] zoom-img rounded-2">
-                            <img class="lozad" data-src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium'); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                            <?php if ( $thumb ) : ?>
+                                <img class="lozad" src="<?php echo esc_url($thumb); ?>" data-src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                            <?php endif; ?>
                         </div>
                         <div class="box-content">
                             <div class="date">
                                 <span><?php echo get_the_date('d/m/Y'); ?></span>
-                                <?php 
-                                $cats = get_the_category();
-                                if ( !empty($cats) ) {
-                                    echo '<p>' . esc_html($cats[0]->name) . '</p>';
-                                }
-                                ?>
+                                <?php if ( !empty($cats) ) : ?>
+                                    <p><?php echo esc_html($cats[0]->name); ?></p>
+                                <?php endif; ?>
                             </div>
                             <div class="title">
                                 <h3><?php the_title(); ?></h3>
@@ -104,41 +119,52 @@ if ( is_category() ) {
                     </a>
                     <?php endwhile; ?>
                 </div>
-                <?php endif; ?>
-                
+
                 <!-- Pagination -->
-                <div class="navigation flex-center gap-3 mt-10">
-                    <?php 
-                    $page_links = paginate_links( array(
-                        'type' => 'array',
+                <?php
+                $total_pages = $GLOBALS['wp_query']->max_num_pages;
+                if ( $total_pages > 1 ) :
+                    $page_links = paginate_links(array(
+                        'total'     => $total_pages,
+                        'current'   => $paged,
+                        'type'      => 'array',
                         'prev_text' => '<i class="fa-regular fa-angle-left"></i>',
                         'next_text' => '<i class="fa-regular fa-angle-right"></i>',
-                    ) );
+                    ));
+                ?>
+                <div class="navigation flex-center gap-3 mt-10">
+                    <a class="btn-navigation btn-frist" href="<?php echo esc_url(get_pagenum_link(1)); ?>">
+                        <i class="fa-regular fa-angles-left"></i>
+                    </a>
 
-                    if ( !empty($page_links) ) {
-                        foreach ( $page_links as $link ) {
-                            // Check if current page span
-                            $is_current = strpos($link, 'current') !== false;
-                            $class = $is_current ? 'btn-navigation btn-count-page current' : 'btn-navigation btn-count-page';
-                            
-                            // Replace span with div or keep wrapper A/span
+                    <?php if ( !empty($page_links) ) :
+                        foreach ( $page_links as $link ) :
                             if ( strpos($link, 'current') !== false ) {
-                                echo '<div class="' . $class . '"><span>' . strip_tags($link) . '</span></div>';
-                            } else if ( strpos($link, 'prev') !== false ) {
-                                echo '<div class="btn-navigation btn-prev">' . $link . '</div>';
-                            } else if ( strpos($link, 'next') !== false ) {
+                                echo '<div class="btn-navigation btn-count-page active"><span>' . strip_tags($link) . '</span></div>';
+                            } elseif ( strpos($link, 'prev') !== false ) {
                                 echo '<div class="btn-navigation btn-next">' . $link . '</div>';
+                            } elseif ( strpos($link, 'next') !== false ) {
+                                echo '<div class="btn-navigation btn-prev">' . $link . '</div>';
                             } else {
-                                echo '<div class="' . $class . '">' . $link . '</div>';
+                                preg_match('/href=["\']([^"\']+)["\']/', $link, $matches);
+                                $href = $matches[1] ?? '#';
+                                $num  = strip_tags($link);
+                                echo '<a class="btn-navigation btn-count-page" href="' . esc_url($href) . '"><span>' . esc_html($num) . '</span></a>';
                             }
-                        }
-                    }
-                    ?>
+                        endforeach;
+                    endif; ?>
+
+                    <a class="btn-navigation btn-last" href="<?php echo esc_url(get_pagenum_link($total_pages)); ?>">
+                        <i class="fa-regular fa-angles-right"></i>
+                    </a>
                 </div>
+                <?php endif; ?>
 
             <?php else : ?>
-                <p class="text-center py-10"><?php esc_html_e('Chưa có bài viết nào.', 'canhcam'); ?></p>
+                <p class="text-center py-10"><?php esc_html_e('Chưa có bài viết nào.', 'canhcamtheme'); ?></p>
             <?php endif; ?>
         </div>
+
     </div>
 </section>
+

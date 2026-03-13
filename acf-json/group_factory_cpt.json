@@ -3,25 +3,89 @@
     "title": "Factory Settings",
     "fields": [
         {
+            "key": "field_tab_factory_main",
+            "label": "1. Thông tin chính",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_factory_thumbnail",
+            "label": "Ảnh đại diện (hiển thị ngoài danh sách)",
+            "name": "factory_thumbnail",
+            "type": "image",
+            "return_format": "array",
+            "instructions": "Ảnh hiển thị trong block-grid ngoài trang Factory List"
+        },
+        {
             "key": "field_factory_desc",
             "label": "Mô tả ngắn (Description)",
             "name": "factory_desc",
-            "type": "textarea",
-            "rows": 4
+            "type": "wysiwyg",
+            "instructions": "Hiển thị trong card và trong popup"
         },
         {
-            "key": "field_factory_map_link",
-            "label": "Google Map Link",
-            "name": "factory_map_link",
-            "type": "link",
-            "return_format": "array"
+            "key": "field_tab_factory_gallery",
+            "label": "2. Gallery Popup",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
         },
         {
             "key": "field_factory_gallery",
-            "label": "Hình ảnh Gallery (Slide)",
+            "label": "Hình ảnh Gallery (Slide trong Popup)",
             "name": "factory_gallery",
             "type": "gallery",
-            "return_format": "array"
+            "return_format": "array",
+            "instructions": "Slider ảnh hiển thị bên trái popup khi click View More"
+        },
+        {
+            "key": "field_tab_factory_contact",
+            "label": "3. Thông tin liên hệ",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_factory_contact_details",
+            "label": "Danh sách chi tiết liên hệ (Icon + Text)",
+            "name": "contact_details",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Thêm thông tin liên hệ",
+            "sub_fields": [
+                {
+                    "key": "field_contact_item_icon",
+                    "label": "Icon (FontAwesome)",
+                    "name": "icon",
+                    "type": "select",
+                    "instructions": "Chọn icon hiển thị trước thông tin liên hệ.",
+                    "choices": {
+                        "fa-location-dot": "📍 Địa chỉ (fa-location-dot)",
+                        "fa-phone": "📞 Điện thoại (fa-phone)",
+                        "fa-mobile": "📱 Di động (fa-mobile)",
+                        "fa-envelope": "✉️ Email (fa-envelope)",
+                        "fa-fax": "🖨️ Fax (fa-fax)",
+                        "fa-globe": "🌐 Website (fa-globe)",
+                        "fa-clock": "🕐 Giờ làm việc (fa-clock)",
+                        "fa-building": "🏢 Văn phòng (fa-building)"
+                    },
+                    "default_value": "fa-location-dot",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_contact_item_link",
+                    "label": "Liên kết",
+                    "name": "link",
+                    "type": "link",
+                    "return_format": "array",
+                    "instructions": "Title = nội dung hiển thị, URL = đường dẫn (tel:, mailto:, https://...)"
+                }
+            ]
         }
     ],
     "location": [
