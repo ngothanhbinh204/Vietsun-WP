@@ -173,10 +173,9 @@ $factories = new WP_Query(array(
                                 ?>
                                 <li>
                                     <span><i class="fa-solid <?php echo esc_attr($icon); ?>"></i></span>
-                                    <a href="<?php echo esc_url($link['url']); ?>"
-                                       <?php echo (!empty($link['target'])) ? 'target="' . esc_attr($link['target']) . '"' : ''; ?>>
-                                        <?php echo esc_html($link['title']); ?>
-                                    </a>
+                                    <div class="content">
+                                        <?php echo $link; ?>
+                                    </div>
                                 </li>
                                 <?php endforeach; ?>
                             </ul>

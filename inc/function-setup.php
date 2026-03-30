@@ -40,6 +40,7 @@ function canhcam_style()
 			if (stripos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse') === false) {
 				wp_enqueue_script('front-end-global', THEME_URI . '/scripts/core.min.js', '', '', true);
 				wp_enqueue_script('front-end-main', THEME_URI . '/scripts/main.min.js', '', '', true);
+				wp_enqueue_script('front-ajax-custom', THEME_URI . '/scripts/frontend.js', '', '', true);
 			}
 		}
 	}

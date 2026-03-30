@@ -83,10 +83,11 @@ $copyright_text    = get_field('footer_copyright', 'option');
                             ?>
                             <li>
                                 <span><i class="fa-solid fa-<?php echo esc_attr($icon); ?>"></i></span>
-                                <?php 
-                                // Nếu chưa được wrap thẻ a hay div thì content WYSIWYG tự xử lý, ta chỉ cần xuất html ra
-                                echo wp_kses_post($content); 
-                                ?>
+                                <div class="wrap-info">
+                                    <?php 
+                                    echo wp_kses_post($content); 
+                                    ?>
+                                </div>
                             </li>
                             <?php 
                                 endif;
@@ -103,19 +104,16 @@ $copyright_text    = get_field('footer_copyright', 'option');
                         <h2 class="heading-4 text-primary-1 uppercase mb-5"><?php echo esc_html($quick_heading); ?></h2>
                         <?php endif; ?>
                         
-                        <?php if ( !empty($quick_links) ) : ?>
-                        <ul>
-                            <?php foreach ( $quick_links as $item ) : 
-                                $link = $item['link'];
-                                if( $link ) :
-                                    $link_url    = $link['url'];
-                                    $link_title  = $link['title'];
-                                    $link_target = $link['target'] ? $link['target'] : '_self';
-                            ?>
-                            <li><a href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>"><?php echo esc_html($link_title); ?></a></li>
-                            <?php endif; endforeach; ?>
-                        </ul>
-                        <?php endif; ?>
+                       <?php if ( has_nav_menu( 'footer-1' ) ) {
+                                        wp_nav_menu( array(
+                                            'theme_location' => 'footer-1',
+                                            'container'      => false,
+                                            'menu_class'     => '',
+                                            'items_wrap'     => '<ul>%3$s</ul>',
+                                            'fallback_cb'    => false,
+                                        ) );
+                                    }
+                                    ?>
                     </div>
                     
                     <!-- Contact With Us -->

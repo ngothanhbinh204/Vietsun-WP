@@ -129,8 +129,8 @@
             "key": "field_contact_map_embed",
             "label": "Google Maps Embed URL",
             "name": "contact_map_embed",
-            "type": "text",
-            "instructions": "Dán URL embed từ Google Maps (phần src trong thẻ iframe). Ví dụ: https://www.google.com/maps/embed?pb=..."
+            "type": "textarea",
+            "instructions": "Dán URL embed từ Google Maps"
         }
     ],
     "location": [

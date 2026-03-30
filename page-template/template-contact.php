@@ -114,15 +114,7 @@ $map_embed      = get_field('contact_map_embed');
         <?php if ( $map_embed ) : ?>
         <div class="box-map">
             <div class="img-ratio ratio:pt-[760_1720]">
-                <iframe
-                    src="<?php echo esc_url($map_embed); ?>"
-                    width="600"
-                    height="450"
-                    style="border:0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+                <?php echo $map_embed; ?>
             </div>
         </div>
         <?php endif; ?>

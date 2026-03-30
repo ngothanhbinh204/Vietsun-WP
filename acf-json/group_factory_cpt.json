@@ -79,11 +79,10 @@
                 },
                 {
                     "key": "field_contact_item_link",
-                    "label": "Liên kết",
+                    "label": "Liên kết / Nội dung",
                     "name": "link",
-                    "type": "link",
-                    "return_format": "array",
-                    "instructions": "Title = nội dung hiển thị, URL = đường dẫn (tel:, mailto:, https://...)"
+                    "type": "wysiwyg",
+                    "instructions": "Nhập nội dung (có thể chèn link, text, v.v...)"
                 }
             ]
         }

@@ -67,15 +67,29 @@ $header_logo = get_field('header_logo', 'option');
                     <div class="item-menu">
                         <div class="header-menu">
                             <?php 
+                            // Thêm filter để thay thế text của item đầu tiên thành ảnh icon home cho menu desktop
+                            if ( ! function_exists( 'canhcamtheme_desktop_home_icon' ) ) {
+                                function canhcamtheme_desktop_home_icon( $title, $item, $args, $depth ) {
+                                    if ( isset( $args->is_desktop ) && $args->is_desktop && $item->menu_order == 1 && $depth == 0 ) {
+                                        return '<img src="' . get_template_directory_uri() . '/UI/img/home.svg" alt="alt">';
+                                    }
+                                    return $title;
+                                }
+                            }
+                            add_filter( 'nav_menu_item_title', 'canhcamtheme_desktop_home_icon', 10, 4 );
+
                             if ( has_nav_menu( 'header-menu' ) ) {
                                 wp_nav_menu( array(
                                     'theme_location' => 'header-menu',
+                                    'is_desktop'     => true,
                                     'container'      => false,
                                     'menu_class'     => '',
                                     'items_wrap'     => '<ul>%3$s</ul>',
                                     'fallback_cb'    => false,
                                 ) );
                             }
+
+                            remove_filter( 'nav_menu_item_title', 'canhcamtheme_desktop_home_icon', 10 );
                             ?>
                         </div>
                     </div>
@@ -83,7 +97,7 @@ $header_logo = get_field('header_logo', 'option');
                     <!-- Search & Language -->
                     <div class="item-search-lang">
                         <div class="header-search">
-                            <img src="<?php echo get_template_directory_uri(); ?>/UI/img/seach.svg" alt="<?php esc_attr_e('Search', 'canhcamtheme'); ?>">
+                            <img src="<?php echo get_template_directory_uri(); ?>/img/seach.svg" alt="<?php esc_attr_e('Search', 'canhcamtheme'); ?>">
                         </div>
                          <?php cc_wpml_custom_language_dropdown(); ?>
                     </div>
@@ -110,9 +124,9 @@ $header_logo = get_field('header_logo', 'option');
                                 </div>
                                 <div class="menu-list">
                                     <?php 
-                                    if ( has_nav_menu( 'mobile' ) ) {
+                                    if ( has_nav_menu( 'header-menu' ) ) {
                                         wp_nav_menu( array(
-                                            'theme_location' => 'mobile',
+                                            'theme_location' => 'header-menu',
                                             'container'      => false,
                                             'menu_class'     => '',
                                             'items_wrap'     => '<ul>%3$s</ul>',

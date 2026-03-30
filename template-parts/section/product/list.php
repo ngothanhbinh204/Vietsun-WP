@@ -28,36 +28,39 @@ if ( is_tax('product_cat') ) {
 }
 
 // ---- Paging ----
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$paged = max(1, get_query_var('paged'));
+$posts_per_page = 16;
 
-// ---- Query: Tab-1 Swiper ----
-$args_swiper = array(
+// ---- Query: Common args ----
+$common_args = array(
     'post_type'      => 'product',
-    'posts_per_page' => 10,
+    'posts_per_page' => $posts_per_page,
+    'paged'          => $paged,
 );
 if ( $current_term_slug ) {
-    $args_swiper['tax_query'] = array(
+    $common_args['tax_query'] = array(
         array( 'taxonomy' => 'product_cat', 'field' => 'slug', 'terms' => $current_term_slug ),
     );
 }
-$products_swiper = new WP_Query($args_swiper);
 
-// ---- Query: Tab-2 Grid with pagination ----
-// Nếu đang ở archive/taxonomy, dùng the main query để pagination hoạt động đúng
-if ( is_tax('product_cat') || is_post_type_archive('product') ) {
-    $products_grid = $GLOBALS['wp_query']; // main WP_Query
-    $paged         = max(1, get_query_var('paged'));
+// ---- Query: Tab-1 Swiper ----
+$products_swiper = new WP_Query($common_args);
+
+// ---- Query: Tab-2 Grid ----
+// Nếu đang hệ thống archive, ta có thể dùng main query cho grid để tối ưu, 
+// nhưng để đồng nhất số lượng posts_per_page và paged trên cả 2 view, ta dùng chung 1 object query hoặc sync config.
+$products_grid = $products_swiper; 
+
+// ---- Tab State ----
+// Ưu tiên lấy layout từ URL (?layout=grid hoặc layout=swiper)
+$layout_param = isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : '';
+if ( $layout_param === 'grid' ) {
+    $active_tab = 2;
+} elseif ( $layout_param === 'swiper' ) {
+    $active_tab = 1;
 } else {
-    // Static page: tự tạo query
-    $args_grid = array(
-        'post_type'      => 'product',
-        'posts_per_page' => 12,
-        'paged'          => $paged,
-    );
-    if ( $current_term_slug ) {
-        $args_grid['tax_query'] = $args_swiper['tax_query'];
-    }
-    $products_grid = new WP_Query($args_grid);
+    // Nếu không có param, ưu tiên Grid nếu paged > 1
+    $active_tab = ($paged > 1) ? 2 : 1;
 }
 ?>
 
@@ -73,8 +76,8 @@ if ( is_tax('product_cat') || is_post_type_archive('product') ) {
                     <div class="box-top">
                         <h2 class="heading-1 title uppercase"><?php echo esc_html($page_title); ?></h2>
                         <ul class="tabslet-tab">
-                            <li class="active"><a href="#tab-1"><img src="<?php echo get_template_directory_uri(); ?>/img/slide-icon.svg" alt="Slide view" /></a></li>
-                            <li><a href="#tab-2"><img src="<?php echo get_template_directory_uri(); ?>/img/gallery-thumbnails.svg" alt="Gallery view" /></a></li>
+                            <li class="<?php echo ($active_tab === 1) ? 'active' : ''; ?>"><a href="#tab-1"><img src="<?php echo get_template_directory_uri(); ?>/img/slide-icon.svg" alt="Slide view" /></a></li>
+                            <li class="<?php echo ($active_tab === 2) ? 'active' : ''; ?>"><a href="#tab-2"><img src="<?php echo get_template_directory_uri(); ?>/img/gallery-thumbnails.svg" alt="Gallery view" /></a></li>
                         </ul>
                     </div>
 
@@ -129,45 +132,21 @@ if ( is_tax('product_cat') || is_post_type_archive('product') ) {
                 <!-- Main Content Area -->
                 <div class="block-main">
 
-                    <!-- Tab 1: Swiper Carousel View -->
-                    <div class="tabslet-content active" id="tab-1">
+                    <!-- Tab 1: Swiper Carousel View with Pagination -->
+                    <?php
+                        $data_tax = 'product_cat';
+                        $data_term = $current_term_slug;
+                        $data_posts_per_page = 16;
+                    ?>
+                    <div class="tabslet-content <?php echo ($active_tab === 1) ? 'active' : ''; ?> canhcam-ajax-wrapper" id="tab-1" data-post-type="product" data-posts-per-page="<?php echo esc_attr($data_posts_per_page); ?>" data-template-part="template-parts/section/product/item-swiper" <?php if ($data_term) echo 'data-taxonomy="'.esc_attr($data_tax).'" data-term="'.esc_attr($data_term).'"'; ?>>
                         <?php if ( $products_swiper->have_posts() ) : ?>
                         <div class="box-swiper">
                             <div class="swiper-products relative">
                                 <div class="swiper" data-id-swiper="products">
-                                    <div class="swiper-wrapper">
+                                    <div class="swiper-wrapper ajax-list-container">
                                         <?php while ( $products_swiper->have_posts() ) : $products_swiper->the_post();
-                                            $subtitle = get_field('product_subtitle');
-                                            $techs    = get_field('product_techs');
-                                            $thumb    = get_the_post_thumbnail_url(null, 'large');
-                                        ?>
-                                        <div class="swiper-slide">
-                                            <div class="child">
-                                                <div class="item">
-                                                    <a class="img img-ratio ratio:pt-[320_290] rounded-4" href="<?php the_permalink(); ?>">
-                                                        <?php if ( $thumb ) : ?>
-                                                            <img class="lozad" src="<?php echo esc_url($thumb); ?>" data-src="<?php echo esc_url($thumb); ?>" alt="<?php the_title_attribute(); ?>" />
-                                                        <?php endif; ?>
-                                                        <div class="bg-text"><span><?php the_title(); ?></span></div>
-                                                        <div class="content">
-                                                            <h3 class="title uppercase heading-6"><?php the_title(); ?></h3>
-                                                            <?php if ( $subtitle ) : ?>
-                                                                <span class="sub-title body-3"><?php echo esc_html($subtitle); ?></span>
-                                                            <?php endif; ?>
-                                                            <?php if ( $techs ) : ?>
-                                                            <div class="desc">
-                                                                <strong>Tech:</strong>
-                                                                <?php foreach ( $techs as $tech ) : ?>
-                                                                    <span><?php echo esc_html($tech['name']); ?></span>
-                                                                <?php endforeach; ?>
-                                                            </div>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php endwhile; wp_reset_postdata(); ?>
+                                            get_template_part('template-parts/section/product/item-swiper');
+                                        endwhile; wp_reset_postdata(); ?>
                                     </div>
                                 </div>
                                 <div class="button-swiper">
@@ -176,65 +155,56 @@ if ( is_tax('product_cat') || is_post_type_archive('product') ) {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Pagination -->
+                        <?php
+                        $total_swiper_pages = $products_swiper->max_num_pages;
+                        if ( $total_swiper_pages > 1 ) :
+                        ?>
+                        <div class="ajax-pagination-container">
+                            <?php canhcam_pagination($products_swiper); ?>
+                        </div>
+                        <?php endif; ?>
+
                         <?php else : ?>
-                        <p class="text-center py-10"><?php esc_html_e('Chưa có sản phẩm nào.', 'canhcamtheme'); ?></p>
+                        <div class="ajax-list-container">
+                            <p class="text-center py-10"><?php esc_html_e('No products found', 'canhcamtheme'); ?></p>
+                        </div>
                         <?php endif; ?>
                     </div>
 
                     <!-- Tab 2: Grid View with Pagination -->
-                    <div class="tabslet-content" id="tab-2">
-                        <?php if ( $products_grid->have_posts() ) : ?>
-                        <div class="box-grid">
+                    <?php
+                        // Cấu hình Ajax
+                        $data_tax = 'product_cat';
+                        $data_term = $current_term_slug;
+                        $data_posts_per_page = 16;
+                    ?>
+                    <div class="tabslet-content <?php echo ($active_tab === 2) ? 'active' : ''; ?> canhcam-ajax-wrapper" id="tab-2" data-post-type="product" data-posts-per-page="<?php echo esc_attr($data_posts_per_page); ?>" data-template-part="template-parts/section/product/item-grid" <?php if ($data_term) echo 'data-taxonomy="'.esc_attr($data_tax).'" data-term="'.esc_attr($data_term).'"'; ?>>
+                        <?php 
+                        $products_grid->rewind_posts();
+                        if ( $products_grid->have_posts() ) : 
+                        ?>
+                        <div class="box-grid ajax-list-container">
                             <?php while ( $products_grid->have_posts() ) : $products_grid->the_post();
-                                $subtitle = get_field('product_subtitle');
-                                $techs    = get_field('product_techs');
-                                $thumb    = get_the_post_thumbnail_url(null, 'large');
-                            ?>
-                            <div class="item-grid group">
-                                <a class="img img-ratio ratio:pt-[1_1] zoom-img rounded-4" href="<?php the_permalink(); ?>" data-fancybox="gallery">
-                                    <?php if ( $thumb ) : ?>
-                                        <img class="lozad" src="<?php echo esc_url($thumb); ?>" data-src="<?php echo esc_url($thumb); ?>" alt="<?php the_title_attribute(); ?>" />
-                                    <?php endif; ?>
-                                    <div class="content">
-                                        <h3 class="title uppercase heading-6"><?php the_title(); ?></h3>
-                                        <?php if ( $subtitle ) : ?>
-                                            <span class="sub-title body-3"><?php echo esc_html($subtitle); ?></span>
-                                        <?php endif; ?>
-                                        <?php if ( $techs ) : ?>
-                                        <div class="desc">
-                                            <strong>Tech:</strong>
-                                            <?php foreach ( $techs as $tech ) : ?>
-                                                <span><?php echo esc_html($tech['name']); ?></span>
-                                            <?php endforeach; ?>
-                                        </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </a>
-                            </div>
-                            <?php endwhile; wp_reset_postdata(); ?>
+                                get_template_part('template-parts/section/product/item-grid');
+                            endwhile; wp_reset_postdata(); ?>
                         </div>
 
                         <!-- Pagination -->
                         <?php
                         $total_pages = $products_grid->max_num_pages;
                         if ( $total_pages > 1 ) :
-                            $paged_now = max(1, (int) get_query_var('paged'));
                         ?>
-                        <div class="navigation flex-center gap-3 mt-base">
-                            <a class="btn-navigation btn-frist" href="<?php echo esc_url(get_pagenum_link(1)); ?>"><i class="fa-regular fa-angles-left"></i></a>
-                            <a class="btn-navigation btn-next" href="<?php echo esc_url(get_pagenum_link(max(1, $paged_now - 1))); ?>"><i class="fa-regular fa-angle-left"></i></a>
-                            <?php for ( $i = 1; $i <= $total_pages; $i++ ) :
-                                $active_class = ($i === $paged_now) ? 'active' : '';
-                            ?>
-                            <a class="btn-navigation btn-count-page <?php echo $active_class; ?>" href="<?php echo esc_url(get_pagenum_link($i)); ?>"><span><?php echo $i; ?></span></a>
-                            <?php endfor; ?>
-                            <a class="btn-navigation btn-prev" href="<?php echo esc_url(get_pagenum_link(min($total_pages, $paged_now + 1))); ?>"><i class="fa-regular fa-angle-right"></i></a>
-                            <a class="btn-navigation btn-last" href="<?php echo esc_url(get_pagenum_link($total_pages)); ?>"><i class="fa-regular fa-angles-right"></i></a>
+                        <div class="ajax-pagination-container">
+                            <?php canhcam_pagination($products_grid); ?>
                         </div>
                         <?php endif; ?>
 
                         <?php else : ?>
-                        <p class="text-center py-10"><?php esc_html_e('Chưa có sản phẩm nào.', 'canhcamtheme'); ?></p>
+                        <div class="ajax-list-container">
+                            <p class="text-center py-10"><?php esc_html_e('Chưa có sản phẩm nào.', 'canhcamtheme'); ?></p>
+                        </div>
                         <?php endif; ?>
                     </div>
 

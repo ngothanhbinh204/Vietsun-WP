@@ -76,3 +76,173 @@ function wp_bootstrap_pagination($args = array())
 	}
 	if (isset($echo)) echo $args['before_output'] . $echo . $args['after_output'];
 }
+
+/**
+ * canhcam Custom Pagination
+ * 
+ * Output HTML structure:
+ * <div class="navigation flex-center gap-3 mt-10">
+ *     <a class="btn-navigation btn-frist" href="#"><i class="fa-regular fa-angles-left"></i></a>
+ *     ...
+ * </div>
+ * 
+ * Usage: <?php canhcam_pagination(); ?> or <?php canhcam_pagination($custom_query); ?>
+ * 
+ * @param WP_Query|null $custom_query Optional custom WP_Query object
+ * @param array $args Optional arguments
+ */
+function canhcam_pagination($custom_query = null, $args = array()) {
+    // Default arguments
+    $defaults = array(
+        'range'           => 5,        // Number of page links to show
+        'wrapper_class'   => 'navigation flex-center gap-3 mt-10',
+        'is_ajax'         => false,    // Set true to use javascript:void(0) and rely on data-page
+    );
+    
+    $args = wp_parse_args($args, $defaults);
+    
+    // Get the query object
+    if ($custom_query === null) {
+        global $wp_query;
+        $custom_query = $wp_query;
+    }
+    
+    // Get total pages
+    $total_pages = (int) $custom_query->max_num_pages;
+    
+    // Don't show pagination if only 1 page
+    if ($total_pages <= 1) {
+        return;
+    }
+    
+    // Get current page
+    if ( $custom_query->get('paged') > 0 ) {
+        $current_page = $custom_query->get('paged');
+    } elseif ( get_query_var('paged') ) {
+        $current_page = get_query_var('paged');
+    } elseif ( get_query_var('page') ) {
+        $current_page = get_query_var('page');
+    } else {
+        $current_page = 1;
+    }
+    
+    // Calculate range
+    $range = (int) $args['range'];
+    $half_range = floor($range / 2);
+    
+    // Calculate start and end page numbers
+    $start_page = max(1, $current_page - $half_range);
+    $end_page = min($total_pages, $current_page + $half_range);
+    
+    // Adjust if we're near the beginning or end
+    if ($current_page <= $half_range) {
+        $end_page = min($total_pages, $range);
+    }
+    if ($current_page > $total_pages - $half_range) {
+        $start_page = max(1, $total_pages - $range + 1);
+    }
+    
+    // Helper to get link
+    $get_link = function($page) use ($args) {
+        if ($args['is_ajax']) return 'javascript:void(0);';
+        
+        $link = get_pagenum_link($page);
+        if (isset($_GET['layout'])) {
+            $link = add_query_arg('layout', sanitize_text_field($_GET['layout']), $link);
+        }
+        return esc_url($link);
+    };
+
+    // Helper to get data attribute
+    $get_data = function($page) use ($args) {
+        return $args['is_ajax'] ? ' data-page="' . $page . '"' : '';
+    };
+
+    // Start output
+    $output = '<div class="' . esc_attr($args['wrapper_class']) . '">';
+    
+    // First page link
+    if ($current_page > 1) {
+        $output .= '<a class="btn-navigation btn-frist" href="' . $get_link(1) . '"' . $get_data(1) . '>';
+        $output .= '<i class="fa-regular fa-angles-left"></i>';
+        $output .= '</a>';
+    }
+    
+    // Page number links
+    for ($i = $start_page; $i <= $end_page; $i++) {
+        if ($i == $current_page) {
+            $output .= '<div class="btn-navigation btn-count-page active"><span' . $get_data($i) . '>' . $i . '</span></div>';
+        } else {
+            $output .= '<a class="btn-navigation btn-count-page" href="' . $get_link($i) . '"' . $get_data($i) . '>';
+            $output .= '<span>' . $i . '</span>';
+            $output .= '</a>';
+        }
+    }
+    
+    // Last page link
+    if ($current_page < $total_pages) {
+        $output .= '<a class="btn-navigation btn-last" href="' . $get_link($total_pages) . '"' . $get_data($total_pages) . '>';
+        $output .= '<i class="fa-regular fa-angles-right"></i>';
+        $output .= '</a>';
+    }
+    
+    $output .= '</div>';
+    
+    echo $output;
+}
+
+/**
+ * Simple canhcam Pagination (no prev/next, no dots)
+ * 
+ * Output exactly like the HTML structure provided:
+ * <div class="navigation flex-center gap-3 mt-10">
+ *     <a class="btn-navigation btn-frist" href="#"><i class="fa-regular fa-angles-left"></i></a>
+ *     ...
+ * </div>
+ * 
+ * @param WP_Query|null $custom_query Optional custom WP_Query object
+ */
+function canhcam_pagination_simple($custom_query = null) {
+    // Get the query object
+    if ($custom_query === null) {
+        global $wp_query;
+        $custom_query = $wp_query;
+    }
+    
+    // Get total pages
+    $total_pages = (int) $custom_query->max_num_pages;
+    
+    // Don't show pagination if only 1 page
+    if ($total_pages <= 1) {
+        return;
+    }
+    
+    // Get current page
+    $current_page = max(1, get_query_var('paged'));
+    
+    // Start output
+    $output = '<div class="navigation flex-center gap-3 mt-10">';
+    
+    // First page link
+    if ($current_page > 1) {
+        $output .= '<a class="btn-navigation btn-frist" href="' . esc_url(get_pagenum_link(1)) . '"><i class="fa-regular fa-angles-left"></i></a>';
+    }
+    
+    // Page number links
+    for ($i = 1; $i <= $total_pages; $i++) {
+        if ($i == $current_page) {
+            $output .= '<div class="btn-navigation btn-count-page active"><span>' . $i . '</span></div>';
+        } else {
+            $output .= '<a class="btn-navigation btn-count-page" href="' . esc_url(get_pagenum_link($i)) . '"><span>' . $i . '</span></a>';
+        }
+    }
+    
+    // Last page link
+    if ($current_page < $total_pages) {
+        $output .= '<a class="btn-navigation btn-last" href="' . esc_url(get_pagenum_link($total_pages)) . '"><i class="fa-regular fa-angles-right"></i></a>';
+    }
+    
+    $output .= '</div>';
+    
+    echo $output;
+}

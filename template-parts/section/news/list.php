@@ -133,30 +133,7 @@ $paged = max(1, (int) get_query_var('paged'));
                     ));
                 ?>
                 <div class="navigation flex-center gap-3 mt-10">
-                    <a class="btn-navigation btn-frist" href="<?php echo esc_url(get_pagenum_link(1)); ?>">
-                        <i class="fa-regular fa-angles-left"></i>
-                    </a>
-
-                    <?php if ( !empty($page_links) ) :
-                        foreach ( $page_links as $link ) :
-                            if ( strpos($link, 'current') !== false ) {
-                                echo '<div class="btn-navigation btn-count-page active"><span>' . strip_tags($link) . '</span></div>';
-                            } elseif ( strpos($link, 'prev') !== false ) {
-                                echo '<div class="btn-navigation btn-next">' . $link . '</div>';
-                            } elseif ( strpos($link, 'next') !== false ) {
-                                echo '<div class="btn-navigation btn-prev">' . $link . '</div>';
-                            } else {
-                                preg_match('/href=["\']([^"\']+)["\']/', $link, $matches);
-                                $href = $matches[1] ?? '#';
-                                $num  = strip_tags($link);
-                                echo '<a class="btn-navigation btn-count-page" href="' . esc_url($href) . '"><span>' . esc_html($num) . '</span></a>';
-                            }
-                        endforeach;
-                    endif; ?>
-
-                    <a class="btn-navigation btn-last" href="<?php echo esc_url(get_pagenum_link($total_pages)); ?>">
-                        <i class="fa-regular fa-angles-right"></i>
-                    </a>
+                  <?php canhcam_pagination($GLOBALS['wp_query']); ?>
                 </div>
                 <?php endif; ?>
 

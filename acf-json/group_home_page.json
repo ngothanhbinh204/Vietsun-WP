@@ -177,13 +177,20 @@
             "key": "field_home_fact_slider",
             "label": "Factories Slider",
             "name": "home_fact_slider",
-            "type": "repeater",
-            "sub_fields": [
-                { "key": "f_f_img", "label": "Ảnh", "name": "image", "type": "image", "return_format": "array" },
-                { "key": "f_f_title", "label": "Tiêu đề", "name": "title", "type": "text" },
-                { "key": "f_f_desc", "label": "Mô tả", "name": "desc", "type": "wysiwyg" },
-                { "key": "f_f_link", "label": "Link", "name": "link", "type": "link", "return_format": "array" }
-            ]
+            "type": "relationship",
+            "post_type": [
+                "factory"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "elements": "",
+            "min": "",
+            "max": "",
+            "return_format": "object"
         },
         {
             "key": "field_tab_home_products",
